@@ -1,0 +1,42 @@
+type Query {
+    user: User
+    users: [User]!
+    product(id: ID!): Product
+    products: [Product]!
+}
+type Mutation {
+    signup(name: String!, email: String!, password: String!): User
+    login(email: String!, password: String!): AuthData
+    createProduct(description: String!, price: Float!, imageUrl: String!): Product!
+    addToCart(id: ID!): CartItem!
+}
+scalar Date
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    password: String!
+    products: [Product]
+    carts: [CartItem]!
+    createdAt: Date!
+}
+type Product {
+    id: ID!
+    description: String!
+    price: Float!
+    imageUrl: String!
+    user: User!
+    createdAt: Date!
+}
+type CartItem {
+    id: ID!
+    product: Product!
+    quantity: Int!
+    user: User!
+    createdAt: Date!
+}
+type AuthData {
+    user: User
+    jwt: String
+
+}
